@@ -1,7 +1,7 @@
 <h2>Качаем залупу</h2>
 <p>git clone</p>
-<p>git checkout dev</p>
-<p>git pull origin dev</p>
+<p>git checkout main</p>
+<p>git pull origin main</p>
 <p>создать .env из .env.example</p>
 <p>если забыл про .env то ./vendor/bin/sail down --rmi all -v (снести все образы и бд нахуй)</p>
 <br>
