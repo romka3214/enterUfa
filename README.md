@@ -11,6 +11,3 @@
 <p>./vendor/bin/sail up -d</p>
 <p>./vendor/bin/sail artisan migrate</p>
 <p>npm run dev</p>
-
-<p>чек
-</p>
