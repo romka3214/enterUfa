@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('establishment_photos', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('establishment_id')
             ->constrained('establishments')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->string('url');
+            $table->string('name');
+            $table->text('description');
+            $table->integer('price')->default(0);
+            $table->date('date_start');
+            $table->date('date_end');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('establishments_photos');
+        Schema::dropIfExists('events');
     }
 };

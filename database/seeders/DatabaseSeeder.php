@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\Establishment::factory()
         ->count(10)
         ->hasPhotos(3)
+        ->has(\App\Models\Event::factory()
+            ->count(3)
+            ->hasPhotos(3))
         ->create();
         
     }

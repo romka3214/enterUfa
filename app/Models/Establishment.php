@@ -26,4 +26,8 @@ class Establishment extends Model
     {
         return $this->hasMany(EstablishmentPhoto::class);
     }
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class);
+    }
 }

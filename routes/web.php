@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EstablishmentController;
+use App\Models\Establishment;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,13 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        // 'est' => Establishment::all()->load('photos')->load('events')
+        'est' => Establishment::with([
+            'photos',
+            'events' =>[
+                'photos'
+            ]
+            ])->get()
     ]);
 });
 

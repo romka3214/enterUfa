@@ -2,19 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Establishment;
-use App\Models\EstablishmentPhoto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Establishment_photo>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\EventPhotos>
  */
-class EstablishmentPhotoFactory extends Factory
+class EventPhotosFactory extends Factory
 {
-
-
-    protected $model = EstablishmentPhoto::class;
-
     /**
      * Define the model's default state.
      *

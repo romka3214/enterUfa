@@ -10,7 +10,7 @@ class EstablishmentPhoto extends Model
 {
     use HasFactory;
 
-    protected $table = 'establishments_photos';
+    protected $table = 'establishment_photos';
 
     protected $fillable = [
         'establishment_id',
