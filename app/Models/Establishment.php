@@ -26,8 +26,25 @@ class Establishment extends Model
     {
         return $this->hasMany(EstablishmentPhoto::class);
     }
+
+    /**
+     * Get all of the events for the Establishment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
     }
+
+    /**
+     * Get all of the reviews for the Establishment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
 }

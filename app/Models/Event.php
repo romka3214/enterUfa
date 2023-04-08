@@ -23,7 +23,7 @@ class Event extends Model
 
 
     /**
-     * Get the user that owns the Event
+     * Get the establishment that owns the Event
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -33,7 +33,7 @@ class Event extends Model
     }
 
     /**
-     * Get all of the Photos for the Event
+     * Get all of the photos for the Event
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

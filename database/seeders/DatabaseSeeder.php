@@ -4,7 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\EstablishmentPhoto;
+use App\Models\Establishment;
+use App\Models\Event;
+use App\Models\User;
+use App\Enum\UserRoleEnum;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,15 +18,27 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@mail.ru',
+            'role' => UserRoleEnum::MODERATOR
         ]);
-        \App\Models\Establishment::factory()
-        ->count(10)
-        ->hasPhotos(3)
-        ->has(\App\Models\Event::factory()
-            ->count(3)
+        User::factory()->create([
+            'name' => 'user',
+            'email' => 'user@mail.ru',
+            'role' => UserRoleEnum::USER
+        ]);
+        User::factory()->create([
+            'name' => 'owner',
+            'email' => 'owner@mail.ru',
+            'role' => UserRoleEnum::OWNER
+        ]);
+        Establishment::factory()
+        ->count(100)
+        ->hasPhotos(5)
+        ->hasReviews(10)
+        ->has(Event::factory()
+            ->count(5)
             ->hasPhotos(3))
         ->create();
         
