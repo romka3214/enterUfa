@@ -33,7 +33,7 @@ Route::get('/', function () {
             ]
             ])->get()
     ]);
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
