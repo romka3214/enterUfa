@@ -55,20 +55,10 @@ defineProps({
     </header>
 
 
-    <!-- <header
-        class="sticky top-0 z-30 h-[72px] bg-gray-900 bg-opacity-50 backdrop-blur backdrop-filter border-b border-gray-800  firefox:bg-opacity-90">
-        <div class="mx-auto max-w-8xl xl:px-8">
-            <div class="h-full flex items-center justify-between px-4 py-5 sm:px-6 lg:px-8 xl:px-0">
-                
-            </div>
-        </div>
-    </header> -->
-
-
-
     <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-white dark:bg-neutral-800 bg-center selection:bg-red-500 selection:text-white">
         <div class="container mx-auto p-4">
+            <div id="vk_auth"></div>
             <div class="flex justify-space-between mt-16 px-6 dark:text-neutral-400 sm:items-center sm:justify-center">
                 <div v-if="est">
                     <div v-for="cell in est">

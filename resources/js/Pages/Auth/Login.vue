@@ -6,6 +6,9 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Config, Connect, ConnectEvents } from '@vkontakte/superappkit'; 
+
+const appID = 51613606;
 
 defineProps({
     canResetPassword: {
@@ -27,6 +30,50 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+Config.init({
+  appId: appID, // Тут нужно подставить ID своего приложения.
+
+  appSettings: {
+    agreements: '',
+    promo: '',
+    vkc_behavior: '',
+    vkc_auth_action: '',
+    vkc_brand: '',
+    vkc_display_mode: '',
+  },
+});
+ 
+const oneTapButton = Connect.floatingOneTapAuth({
+  callback: (VKAuthButtonCallbackResult) => {
+    const { type } = event;
+
+    if (!type) {
+      return;
+    }
+
+    switch (type) {
+      case ConnectEvents.OneTapAuthEventsSDK.LOGIN_SUCCESS:
+        return console.info(event);
+      default:
+        // Обработка остальных событий.
+    }
+
+    return;
+  },
+  options: {
+    styles: {
+      zIndex: 999,
+    },
+    skipSuccess: false,
+  },
+});
+
+if (oneTapButton) {
+  document.body.appendChild(oneTapButton.getFrame());
+}
+
+
 </script>
 
 <template>
