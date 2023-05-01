@@ -2,77 +2,53 @@
 import { Head, Link } from '@inertiajs/vue3';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
-defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
-    est: {
-        required: true,
-    },
-});
+
+// Import Swiper Vue.js components
+import { EffectFade, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// Import Swiper styles
+import 'swiper/css/bundle';
+
+
+
+const onSwiper = (swiper) => {
+    console.log(swiper);
+};
+const onSlideChange = () => {
+    console.log('slide change');
+};
+
+
 </script>
 
+
 <template>
-    <Head title="Welcome" />
+    <Head title="Добро пожаловать!" />
 
 
-    <header
-        class="sticky top-0 z-30 h-[84px] bg-neutral-900 bg-opacity-50 backdrop-blur backdrop-filter  firefox:bg-opacity-90">
-        <div class="container mx-auto max-w-8xl xl:px-8 h-full">
-            <div class="flex items-center justify-between border-b border-neutral-800 h-full px-4 py-3 sm:px-6 lg:px-8 xl:px-0">
-                <Link class="h-full" :href="route('home')">
-                    <ApplicationLogo class="fill-current h-full text-black-500 dark:fill-white" />
-                </Link>
+    <main class="h-screen w-screen">
+        <swiper class="h-screen w-screen" :modules="[EffectFade, Autoplay]" effect="fade" :autoplay="{
+            delay: 5000
+        }"
+        :speed="5000"
+            :slides-per-view="1" @swiper="onSwiper" @slideChange="onSlideChange">
+            <swiper-slide><img class="h-full w-full object-cover" :src="'../storage/2.jpg'" alt=""></swiper-slide>
+            <swiper-slide><img class="h-full w-full object-cover" :src="'../storage/prevyu3-min.jpg'" alt=""></swiper-slide>
+        </swiper>
 
-                <div v-if="canLogin" class="text-right">
-                    <Link v-if="$page.props.auth.user" :href="route('dashboard')"
-                        class="font-semibold text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                Панель управления</Link>
-
-                    <template v-else>
-                        <Link :href="route('login')"
-                            class="font-semibold text-neutral-600 hover:text-neutral-400 dark:text-neutral-200 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                        Войти</Link>
-
-                        <Link v-if="canRegister" :href="route('register')"
-                            class="ml-4 font-semibold text-neutral-600 hover:text-neutral-400 dark:text-neutral-200 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                        Регистрация</Link>
-                    </template>
-                </div>
+        <div class="main_box h-full w-full flex items-center flex-col absolute top-0 z-10 bg-dark-500">
+            <Link class="h-10" :href="route('home')">
+            <ApplicationLogo class="fill-current h-full text-black-500 dark:fill-white" />
+            </Link>
+            <div class="">
+                <p>Все события и заведения новой Уфы как на ладони</p>
+                <p>Добро пожаловать в EnterUfa</p>
             </div>
+
         </div>
-    </header>
 
 
-    <div
-        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-white dark:bg-neutral-800 bg-center selection:bg-red-500 selection:text-white">
-        <div class="container mx-auto p-4">
-            <div id="vk_auth"></div>
-            <div class="flex justify-space-between mt-16 px-6 dark:text-neutral-400 sm:items-center sm:justify-center">
-                <div v-if="est">
-                    <div v-for="cell in est">
-                    
-                                                    
-                        <h1 class="text-xl">{{ cell.name }}</h1>
-                        <h3 class="text-lg">{{ cell.description }}</h3>
-                        <p>{{ cell.address }}</p>
-                        <div class="flex flex-row">
-                            <img class="m-2" :src="photo.url" alt="" v-for="photo in cell.photos">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 </template>
+

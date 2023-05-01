@@ -34,13 +34,13 @@ class DatabaseSeeder extends Seeder
             'role' => UserRoleEnum::OWNER
         ]);
         Establishment::factory()
-        ->count(100)
+        ->count(15)
         ->hasPhotos(5)
-        ->hasReviews(10)
+        ->hasReviews(3)
         ->has(Event::factory()
-            ->count(5)
-            ->hasPhotos(3))
+            ->count(3)
+            ->hasPhotos(2))
         ->create();
-        
+
     }
 }

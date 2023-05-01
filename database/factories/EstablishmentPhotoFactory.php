@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Establishment;
 use App\Models\EstablishmentPhoto;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Establishment_photo>
@@ -23,7 +24,7 @@ class EstablishmentPhotoFactory extends Factory
     public function definition(): array
     {
         return [
-            'url' => $this->faker->imageUrl($width = 200, $height = 600),
+            'url' => $this->faker->imageUrl(640, 480, ['pub']),
         ];
     }
 }

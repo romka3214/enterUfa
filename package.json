@@ -18,6 +18,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "@vkontakte/superappkit": "^1.60.0"
+        "@vkontakte/superappkit": "^1.60.0",
+        "swiper": "^9.2.4"
     }
 }

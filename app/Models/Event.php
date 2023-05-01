@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 class Event extends Model
 {
@@ -20,6 +21,18 @@ class Event extends Model
         'date_start',
         'date_end'
     ];
+    protected $dates = [
+        'date_start',
+        'date_end'
+    ];
+    public function getDateStartAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
+    public function getDateEndAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
 
 
     /**

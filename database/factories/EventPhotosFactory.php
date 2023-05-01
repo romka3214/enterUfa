@@ -17,7 +17,7 @@ class EventPhotosFactory extends Factory
     public function definition(): array
     {
         return [
-            'url' => $this->faker->imageUrl($width = 200, $height = 600),
+            'url' => $this->faker->imageUrl(640, 480, ['concert']),
         ];
     }
 }
