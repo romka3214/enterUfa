@@ -23,7 +23,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
+        <Head title="Забыл пароль" />
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
             Давайте вам поможем. Введите вашу почту от аккаунта и мы вышлем вам инструкции.
