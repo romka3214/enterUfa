@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
 class Establishment extends Model
@@ -16,6 +17,16 @@ class Establishment extends Model
         'description',
         'address'
     ];
+
+    /**
+     * Get all of the tags for the Establishment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'establishment_tags');
+    }
 
     /**
      * Get all of the photos for the Establishment
