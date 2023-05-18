@@ -20,7 +20,7 @@ class EstablishmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->company,
             'description' => $this->faker->text,
             'address' => $this->faker->address
         ];

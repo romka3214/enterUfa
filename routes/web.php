@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EstablishmentController;
+use App\Http\Controllers\RecommendationsController;
 use App\Models\Establishment;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,18 +26,11 @@ Route::get('/', function (){
     return Inertia::render('Welcome');
 });
 
-Route::get('/home', function () {
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'est' => Establishment::with([
-            'photos',
-            'events' =>[
-                'photos'
-            ]
-            ])->get()
-    ]);
-})->name('home');
+Route::middleware('auth')->group(function () {
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/recommendations', [RecommendationsController::class, 'index'])->name('recommendations');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {

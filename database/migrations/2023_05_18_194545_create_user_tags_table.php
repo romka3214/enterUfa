@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('establishment_tags', function (Blueprint $table) {
+        Schema::create('user_tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('establishment_id')
-                ->constrained('establishments')
+            $table->foreignId('user_id')
+                ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('tag_id')
                 ->constrained('tags')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('popularity_count')->default(0);
+            $table->integer('interest_count')->default(0);
             $table->timestamps();
         });
     }
@@ -31,12 +31,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('establishment_tags', function (Blueprint $table) {
-            $table->dropForeign('establishment_tags_establishment_id_foreign');
+        Schema::table('user_tags', function (Blueprint $table) {
+            $table->dropForeign('user_tags_user_id_foreign');
         });
-        Schema::table('establishment_tags', function (Blueprint $table) {
-            $table->dropForeign('establishment_tags_tag_id_foreign');
+        Schema::table('user_tags', function (Blueprint $table) {
+            $table->dropForeign('user_tags_tag_id_foreign');
         });
-        Schema::dropIfExists('establishment_tags');
+        Schema::dropIfExists('user_tags');
     }
 };
