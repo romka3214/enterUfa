@@ -12,10 +12,10 @@ class RecommendationsController extends Controller
 
     public function index()
     {
+        $est = Establishment::with(['photos'])
+            ->get();
         return Inertia::render('Recommendations/Index', [
-            'all' => Establishment::with([
-                'photos'
-            ])->paginate(5)
+            'all' => $est->sortBy('average_score')
         ]);
     }
 }

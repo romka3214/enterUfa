@@ -17,13 +17,15 @@ class Event extends Model
         'establishment_id',
         'name',
         'description',
-        'price',
         'date_start',
         'date_end'
     ];
     protected $dates = [
         'date_start',
         'date_end'
+    ];
+    protected $casts = [
+        'price'
     ];
     public function getDateStartAttribute($value)
     {
@@ -32,6 +34,10 @@ class Event extends Model
     public function getDateEndAttribute($value)
     {
         return Carbon::parse($value)->diffForHumans();
+    }
+    public function getPriceAttribute($value)
+    {
+        return number_format($value, 0, ' ', ' ').' ₽';
     }
 
 

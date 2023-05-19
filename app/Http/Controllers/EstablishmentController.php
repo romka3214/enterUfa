@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Establishment;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EstablishmentController extends Controller
 {
@@ -12,7 +13,11 @@ class EstablishmentController extends Controller
      */
     public function index()
     {
-        //
+        $establishment = Establishment::with(['photos'])
+            ->get();
+        return Inertia::render('Establishment/Index', [
+            'all' => $establishment->sortBy('average_score')
+        ]);
     }
 
     /**
@@ -34,10 +39,17 @@ class EstablishmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        $est = Establishment::all();
-        return $est;
+        $establishment = Establishment::with([
+            'photos',
+            'events' =>[
+                'photos'
+            ]
+        ])->find($id);
+        return Inertia::render('Establishment/Single', [
+            'establishment' => $establishment
+        ]);
     }
 
     /**
