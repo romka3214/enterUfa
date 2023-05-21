@@ -33,6 +33,16 @@ class Establishment extends Model
     }
 
     /**
+     * Get all of the users who following the Establishment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_follows');
+    }
+
+    /**
      * Get all of the photos for the Establishment
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

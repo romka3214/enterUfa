@@ -6,30 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Review extends Model
+class EstablishmentStatistics extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'establishment_id',
-        'user_id',
-        'text',
-        'score',
-        'published',
+        'views',
+        'new_followers',
+        'date'
     ];
 
     /**
-     * Get the user that owns the Review
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the establishment that owns the Review
+     * Get the establishment that owns the stats
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -37,5 +26,5 @@ class Review extends Model
     {
         return $this->belongsTo(Establishment::class);
     }
-}
 
+}
