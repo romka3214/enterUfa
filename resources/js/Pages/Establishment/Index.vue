@@ -1,21 +1,55 @@
 <script setup>
-import {Head, Link} from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import Card from '@/Pages/Establishment/Card.vue';
+// import {onMounted, ref, toRef, watch} from "vue";
+// import {Inertia} from "@inertiajs/inertia";
+// import Meilisearch from "meiliseacrh";
 
 defineProps({
-    all: {
+    establishments: {
         required: true,
     },
+    status: {
+        required: false,
+        type: String,
+    }
 });
+
+const searchForm = useForm({
+    query: '',
+});
+
+const search = () => {
+    searchForm.get(route('establishments'), {
+        preserveState: true,
+    });
+};
+// const searchQuery = ref('');
+// const client = ref(null);
+// const establishments = toRef(props, 'establishments');
+//
+// onMounted(() => {
+//     client.value = new Meilisearch({host: 'http://localhost:7700'})
+// })
+//
+// const search = async (query) => {
+//
+//     if(query){
+//         establishments.value = await client.value.index('establishments').search(query)
+//     }
+// }
+
+
 </script>
 
 <template>
     <Head title="Заведения"/>
 
     <MainLayout>
-        <h1 class="mt-5 mb-14 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Все <span class="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-white">заведения</span></h1>
-        <form>
+        <h1 class="mt-5 mb-14 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Все <span
+            class="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-white">заведения</span></h1>
+        <form @submit.prevent="search">
             <label for="default-search"
                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Поиск</label>
             <div class="relative">
@@ -28,18 +62,28 @@ defineProps({
                 </div>
                 <input type="search" id="default-search"
                        class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-neutral-500 focus:border-neutral-500 dark:bg-neutral-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
-                       placeholder="Введите что хотели бы найти :)" required>
+                       placeholder="Введите что хотели бы найти :)"
+                       v-model="searchForm.query"
+                       required>
+
                 <button type="submit"
                         class="text-white absolute right-2.5 bottom-2.5 bg-neutral-700 hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-neutral-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-neutral-600 dark:hover:bg-neutral-700 dark:focus:ring-neutral-800">
                     Поиск
                 </button>
             </div>
         </form>
+        {{searchForm.errors.query}}
+        <div v-if="searchForm.isDirty">There are unsaved form changes.</div>
+        <progress v-if="searchForm.progress" :value="searchForm.progress.percentage" max="100">
+            {{ searchForm.progress.percentage }}%
+        </progress>
+        <div v-if="status">
+            {{ status }}
+        </div>
+        <progress id="file" max="100" value="70"> 70% </progress>
+        <div v-if="establishments" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 dark:text-neutral-400 gap-3">
 
-        <div id="vk_auth"></div>
-        <div v-if="all" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 dark:text-neutral-400 gap-3">
-
-            <Card v-for="cell in all" :establishment=cell />
+            <Card v-for="cell in establishments" :establishment=cell />
 
 
         </div>

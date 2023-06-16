@@ -62,6 +62,9 @@ const onSlideChange = () => {
                     </div>
                     <div class="text-xl">Описание: {{ establishment.description }}</div>
                     <div class="text-xl">Адресс: {{ establishment.address }}</div>
+                    <div class="text-xl">Теги заведения:
+                        <span v-for="n in establishment.tags" class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">{{ n.name }}</span>
+                    </div>
                 </div>
             </div>
             <h3 class="text-3xl font-bold dark:text-white">События заведения</h3>

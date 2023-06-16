@@ -22,7 +22,8 @@ class EstablishmentFactory extends Factory
         return [
             'name' => $this->faker->company,
             'description' => $this->faker->text,
-            'address' => $this->faker->address
+            'address' => $this->faker->address,
+            'user_id' => 1
         ];
     }
 }

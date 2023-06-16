@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/establishments', [EstablishmentController::class, 'index'])->name('establishments');
+
     Route::get('/establishments/{id}', [EstablishmentController::class, 'show'])->name('establishments.show');
 
     Route::get('/events', [EventController::class, 'index'])->name('events');

@@ -4,23 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Laravel\Scout\Searchable;
 
 
 class Establishment extends Model
 {
-    use HasFactory;
+    use Searchable, HasFactory;
 
     protected $fillable = [
         'name',
         'description',
-        'address'
+        'address',
+        'user_id'
     ];
     protected $appends = [
         'average_score'
     ];
+
+    /**
+     * Get the name of the index associated with the model.
+     */
+    public function searchableAs(): string
+    {
+        return 'name';
+    }
 
     /**
      * Get all of the tags for the Establishment
@@ -30,6 +41,16 @@ class Establishment extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'establishment_tags');
+    }
+
+    /**
+     * Get owner of the Establishment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

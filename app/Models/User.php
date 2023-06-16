@@ -77,6 +77,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+    /**
+     * Get all of the events for the Establishment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function establishments(): HasMany
+    {
+        return $this->hasMany(Establishment::class);
+    }
 
     /**
      * Get all of the following Establishments for the User

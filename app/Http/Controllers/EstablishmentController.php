@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Establishment;
-use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
+use Illuminate\Database\Eloquent\Builder;
 
 class EstablishmentController extends Controller
 {
@@ -13,12 +15,40 @@ class EstablishmentController extends Controller
      */
     public function index()
     {
-        $establishment = Establishment::with(['photos'])
-            ->get();
+
+        if(Request::input('query')){
+            $establishment = Establishment::search(Request::input('query'))
+                ->query(fn (Builder $query) => $query->with('photos'))
+                ->get();
+        } else{
+            $establishment = Establishment::with('photos')->get();
+        }
+
         return Inertia::render('Establishment/Index', [
-            'all' => $establishment->sortBy('average_score')
+            'establishments' => $establishment->sortBy('average_score')
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'query' => 'required|string',
+        ]);
+        $result = Establishment::search($request->get('query'))->get();
+
+        return back()->with(['establishments' => $result, 'status' => 'test']);
+    }
+
+//    public function search(Request $request)
+//    {
+//        $establishment = Establishment::with([
+//            'photos',
+//            'tags',
+//            'events' => [
+//                'photos'
+//            ]
+//        ])->find($id);
+//    }
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +73,8 @@ class EstablishmentController extends Controller
     {
         $establishment = Establishment::with([
             'photos',
-            'events' =>[
+            'tags',
+            'events' => [
                 'photos'
             ]
         ])->find($id);
