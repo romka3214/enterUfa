@@ -23,23 +23,9 @@ const searchForm = useForm({
 const search = () => {
     searchForm.get(route('establishments'), {
         preserveState: true,
+        preserveScroll: true,
     });
 };
-// const searchQuery = ref('');
-// const client = ref(null);
-// const establishments = toRef(props, 'establishments');
-//
-// onMounted(() => {
-//     client.value = new Meilisearch({host: 'http://localhost:7700'})
-// })
-//
-// const search = async (query) => {
-//
-//     if(query){
-//         establishments.value = await client.value.index('establishments').search(query)
-//     }
-// }
-
 
 </script>
 
@@ -62,9 +48,8 @@ const search = () => {
                 </div>
                 <input type="search" id="default-search"
                        class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-neutral-500 focus:border-neutral-500 dark:bg-neutral-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
-                       placeholder="Введите что хотели бы найти :)"
-                       v-model="searchForm.query"
-                       required>
+                       placeholder="Введите название заведения"
+                       v-model="searchForm.query">
 
                 <button type="submit"
                         class="text-white absolute right-2.5 bottom-2.5 bg-neutral-700 hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-neutral-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-neutral-600 dark:hover:bg-neutral-700 dark:focus:ring-neutral-800">
@@ -72,20 +57,9 @@ const search = () => {
                 </button>
             </div>
         </form>
-        {{searchForm.errors.query}}
-        <div v-if="searchForm.isDirty">There are unsaved form changes.</div>
-        <progress v-if="searchForm.progress" :value="searchForm.progress.percentage" max="100">
-            {{ searchForm.progress.percentage }}%
-        </progress>
-        <div v-if="status">
-            {{ status }}
-        </div>
-        <progress id="file" max="100" value="70"> 70% </progress>
         <div v-if="establishments" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 dark:text-neutral-400 gap-3">
-
             <Card v-for="cell in establishments" :establishment=cell />
-
-
         </div>
+
     </MainLayout>
 </template>

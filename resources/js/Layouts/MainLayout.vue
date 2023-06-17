@@ -13,7 +13,8 @@ import 'flowbite';
                 <Link class="h-full" :href="route('home')">
                     <ApplicationLogo class="fill-current h-full text-black-500 dark:fill-white" />
                 </Link>
-
+                {{$page.props.auth.user.role}}
+                {{$page.props.auth.user.name}}
                 <div class="text-right">
 <!--                    <Link :href="route('events')"-->
 <!--                          class="mx-2 font-semibold text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">-->
@@ -24,9 +25,17 @@ import 'flowbite';
                     <Link :href="route('recommendations')"
                           class="mx-2 font-semibold text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                         Рекомендации</Link>
-                    <Link v-if="$page.props.auth.user" :href="route('dashboard')"
+
+
+                    <Link v-if="$page.props.auth.user.role === 2" :href="route('dashboard')"
                           class="mx-2 font-semibold text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                         Панель управления</Link>
+                    <Link v-if="$page.props.auth.user.role === 0" :href="route('dashboard')"
+                          class="mx-2 font-semibold text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                        Профиль</Link>
+                    <Link v-if="$page.props.auth.user.role === 1" :href="route('dashboard')"
+                          class="mx-2 font-semibold text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                        Управление заведением</Link>
 
 
                 </div>

@@ -74,6 +74,9 @@ class EstablishmentController extends Controller
         $establishment = Establishment::with([
             'photos',
             'tags',
+            'reviews' => [
+                'user'
+            ],
             'events' => [
                 'photos'
             ]
