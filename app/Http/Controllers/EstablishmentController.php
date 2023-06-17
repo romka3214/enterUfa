@@ -17,7 +17,7 @@ class EstablishmentController extends Controller
     {
 
         if(Request::input('query')){
-            $establishment = Establishment::where('name', '%',,'%'))
+            $establishment = Establishment::where('name','like', '%'.Request::input('query').'%')->with('photos')
 //                ->query(fn (Builder $query) => $query->with('photos'))
                 ->get();
         } else{

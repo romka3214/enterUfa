@@ -13,8 +13,8 @@ import 'flowbite';
                 <Link class="h-full" :href="route('home')">
                     <ApplicationLogo class="fill-current h-full text-black-500 dark:fill-white" />
                 </Link>
-                {{$page.props.auth.user.role}}
-                {{$page.props.auth.user.name}}
+<!--                {{$page.props.auth.user.role}}-->
+<!--                {{$page.props.auth.user.name}}-->
                 <div class="text-right">
 <!--                    <Link :href="route('events')"-->
 <!--                          class="mx-2 font-semibold text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">-->
