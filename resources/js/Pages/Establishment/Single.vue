@@ -85,9 +85,9 @@ const onSlideChange = () => {
         <h3 class="text-3xl font-bold dark:text-white mb-6">Отзывы</h3>
         <div class="mb-6">
             <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Текст отзыва</label>
-            <input type="text" id="large-input" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <input type="text" id="large-input" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-neutral-500 focus:border-neutral-500 dark:bg-neutral-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500">
         </div>
-        block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-neutral-500 focus:border-neutral-500 dark:bg-neutral-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500
+
         <div v-for="review in establishment.reviews">
             <div v-if="review.published === true" class="flex-col text-neutral-400 mb-6 border-b">
                 <div class="text-xl mb-2">
