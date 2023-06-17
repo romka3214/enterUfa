@@ -34,7 +34,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'role'
     ];
 
     /**
@@ -55,8 +56,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'role' => UserRoleEnum::class
+        'email_verified_at' => 'datetime'
     ];
 
     /**
