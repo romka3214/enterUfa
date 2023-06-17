@@ -17,8 +17,8 @@ class EstablishmentController extends Controller
     {
 
         if(Request::input('query')){
-            $establishment = Establishment::search(Request::input('query'))
-                ->query(fn (Builder $query) => $query->with('photos'))
+            $establishment = Establishment::where('name', '%',,'%'))
+//                ->query(fn (Builder $query) => $query->with('photos'))
                 ->get();
         } else{
             $establishment = Establishment::with('photos')->get();
@@ -29,15 +29,15 @@ class EstablishmentController extends Controller
         ]);
     }
 
-    public function search(Request $request)
-    {
-        $request->validate([
-            'query' => 'required|string',
-        ]);
-        $result = Establishment::search($request->get('query'))->get();
-
-        return back()->with(['establishments' => $result, 'status' => 'test']);
-    }
+//    public function search(Request $request)
+//    {
+//        $request->validate([
+//            'query' => 'required|string',
+//        ]);
+//        $result = Establishment::search($request->get('query'))->get();
+//
+//        return back()->with(['establishments' => $result, 'status' => 'test']);
+//    }
 
 //    public function search(Request $request)
 //    {
