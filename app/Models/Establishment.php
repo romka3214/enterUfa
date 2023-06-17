@@ -13,7 +13,7 @@ use Laravel\Scout\Searchable;
 
 class Establishment extends Model
 {
-    use Searchable, HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'name',
