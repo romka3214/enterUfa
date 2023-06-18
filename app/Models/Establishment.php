@@ -25,13 +25,7 @@ class Establishment extends Model
         'average_score'
     ];
 
-    /**
-     * Get the name of the index associated with the model.
-     */
-    public function searchableAs(): string
-    {
-        return 'name';
-    }
+
 
     /**
      * Get all of the tags for the Establishment

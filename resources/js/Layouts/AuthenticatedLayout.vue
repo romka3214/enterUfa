@@ -27,12 +27,27 @@ const showingNavigationDropdown = ref(false);
                                 </Link>
                             </div>
 
-<!--                            &lt;!&ndash; Navigation Links &ndash;&gt;-->
-<!--                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">-->
-<!--                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-<!--                                    Панель управления-->
-<!--                                </NavLink>-->
-<!--                            </div>-->
+                            <!-- Navigation Links -->
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Заведение
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('dashboard.events')" :active="route().current('dashboard.events')">
+                                    События
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('dashboard.reviews')" :active="route().current('dashboard.reviews')">
+                                    Отзывы
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('dashboard.photos')" :active="route().current('dashboard.photos')">
+                                    Фото
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

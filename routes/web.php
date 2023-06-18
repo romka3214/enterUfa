@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\RecommendationsController;
+use App\Http\Controllers\UserLKController;
+use App\Http\Controllers\DashboardController;
+
 use App\Models\Establishment;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,12 +43,27 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/recommendations', [RecommendationsController::class, 'index'])->name('recommendations');
+
+    Route::get('/lk', [UserLKController::class, 'index'])->name('profileLK.show');
+
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/dashboard/reviews', [DashboardController::class, 'indexReviews'])->name('dashboard.reviews');
+
+
+    Route::get('/dashboard/events', [DashboardController::class, 'indexEvents'])->name('dashboard.events');
+    Route::get('/dashboard/event/{id}', [DashboardController::class, 'showEvent'])->name('dashboard.event.show');
+
+
+    Route::get('/dashboard/photos', [DashboardController::class, 'indexPhotos'])->name('dashboard.photos');
+
+
+
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
