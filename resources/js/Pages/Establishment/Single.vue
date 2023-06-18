@@ -1,25 +1,36 @@
 <script setup>
-import {Head, Link} from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import {Swiper, SwiperSlide} from 'swiper/vue';
 import {Navigation} from 'swiper';
 import 'swiper/css/navigation';
 import 'swiper/css/bundle';
 import Card from '@/Pages/Event/Card.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
 
-
-defineProps({
+const props = defineProps({
     establishment: {
         required: true,
     },
 });
 
-const onSwiper = (swiper) => {
-    console.log(swiper);
+
+const newReviewForm = useForm({
+    text: '',
+    id: props.establishment.id,
+});
+
+const submit = () => {
+    newReviewForm.post(route('establishments.review.store'), {
+        onFinish: () => newReviewForm.reset('text'),
+        preserveState: true,
+        preserveScroll: true,
+    });
 };
-const onSlideChange = () => {
-    console.log('slide change');
-};
+
 </script>
 
 <template>
@@ -39,7 +50,7 @@ const onSlideChange = () => {
                             prevEl: '.swiper-button-prev'
                         }"
                     :speed="1000"
-                    :slides-per-view="1" @swiper="onSwiper" @slideChange="onSlideChange">
+                    :slides-per-view="1">
                     <swiper-slide v-for="img in establishment.photos">
                         <img class="w-full object-cover" :src=img.url alt="">
                     </swiper-slide>
@@ -83,12 +94,44 @@ const onSlideChange = () => {
         </div>
 
         <h3 class="text-3xl font-bold dark:text-white mb-6">Отзывы</h3>
-        <div class="mb-6">
-            <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Текст отзыва</label>
-            <input type="text" id="large-input" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-neutral-500 focus:border-neutral-500 dark:bg-neutral-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500">
-        </div>
+<!--        <form >-->
+<!--            <div class="mb-6">-->
+<!--                <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Напишите свой отзыв!</label>-->
+<!--                <input type="text" id="large-input" v- class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-neutral-500 focus:border-neutral-500 dark:bg-neutral-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500">-->
+<!--            </div>-->
+<!--            <button type="submit"-->
+<!--                    class="text-white bg-neutral-700 hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-neutral-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-neutral-600 dark:hover:bg-neutral-700 dark:focus:ring-neutral-800">-->
+<!--                Добавить-->
+<!--            </button>-->
+<!--        </form>-->
 
-        <div v-for="review in establishment.reviews">
+        <form @submit.prevent="submit">
+            <InputLabel for="email" value="Напишите свой отзыв!" />
+
+            <TextInput
+                id="text"
+                type="text"
+                class="mt-1 block w-full"
+                v-model="newReviewForm.text"
+                required
+                autofocus
+            />
+            <TextInput
+                type="hidden"
+                class="mt-1 block w-full"
+                v-model="newReviewForm.id"
+                required
+                autofocus
+            />
+
+            <InputError class="mt-2" :message="newReviewForm.errors.text" />
+            <div class="flex items-center justify-end mt-4">
+                <PrimaryButton :class="{ 'opacity-25': newReviewForm.processing }" :disabled="newReviewForm.processing">
+                    Отправить
+                </PrimaryButton>
+            </div>
+        </form>
+        <div v-for="review in establishment.reviews" class="mt-3">
             <div v-if="review.published === true" class="flex-col text-neutral-400 mb-6 border-b">
                 <div class="text-xl mb-2">
                     {{ review.user.name }}

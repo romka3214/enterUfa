@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/establishments/{id}', [EstablishmentController::class, 'show'])->name('establishments.show');
 
+    Route::post('/establishments/reviewAdd', [EstablishmentController::class, 'addReview'])->name('establishments.review.store');
+
+
     Route::get('/events', [EventController::class, 'index'])->name('events');
     Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Establishment;
 
+use App\Models\Review;
+use App\Models\Tag;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,16 +19,32 @@ class EstablishmentController extends Controller
     public function index()
     {
 
-        if(Request::input('query')){
-            $establishment = Establishment::where('name','like', '%'.Request::input('query').'%')->with('photos')
-//                ->query(fn (Builder $query) => $query->with('photos'))
-                ->get();
-        } else{
-            $establishment = Establishment::with('photos')->get();
-        }
+
+        $establishment = Establishment::when(Request::input('search'), function ($query) {
+            $query->where('name', 'like', '%' . Request::input('search') . '%');
+        })->when(Request::input('searchTagsArray'), function ($query) {
+            $query->whereIn('tags.id', Request::input('searchTagsArray'))
+                ->join('establishment_tags', 'establishments.id', '=', 'establishment_tags.establishment_id')
+                ->join('tags', 'establishment_tags.tag_id', '=', 'tags.id')
+                ->select('establishments.*')
+                ->distinct();
+        })->with('photos')->get();
+
+        $tags = Tag::when(Request::input('searchTags'), function ($query) {
+            $query->where('name', 'like', '%' . Request::input('searchTags') . '%');
+        })->get();
+
+//        if (Request::input('search')) {
+//            $establishment = Establishment::where('name', 'like', '%' . Request::input('search') . '%')->with('photos')
+////                ->query(fn (Builder $query) => $query->with('photos'))
+//                ->get();
+//        } else {
+//            $establishment = Establishment::with('photos')->get();
+//        }
 
         return Inertia::render('Establishment/Index', [
-            'establishments' => $establishment->sortBy('average_score')
+            'establishments' => $establishment->sortBy('average_score'),
+            'tags' => fn() => $tags,
         ]);
     }
 
@@ -108,5 +127,20 @@ class EstablishmentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function addReview()
+    {
+
+        Review::create([
+            'user_id' => Auth::user()->id,
+            'establishment_id' => Request::input('id'),
+            'score' => 5,
+            'text' => Request::input('text'),
+            'published' => true
+        ]);
+
+        return back();
+
     }
 }
