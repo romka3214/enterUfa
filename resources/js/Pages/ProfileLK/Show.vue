@@ -9,32 +9,39 @@ import MainLayout from '@/Layouts/MainLayout.vue';
 </script>
 
 <template>
-    <Head :title="Профиль" />
+    <Head :title="Профиль"/>
 
     <MainLayout>
-        <h1 class="mt-5 mb-14 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Ваш профиль <span
-            class="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-white">{{$page.props.auth.user.name}}</span></h1>
+        <h1 class="mt-5 mb-14 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Ваш профиль
+            <span
+                class="text-transparent bg-clip-text bg-gradient-to-r to-red-600 from-white">{{ $page.props.auth.user.name }}</span>
+        </h1>
 
         <div>
             <div class="max-w-3xl">
                 <div>
-                    <UpdateProfileInformationForm :user="$page.props.auth.user" />
+                    <UpdateProfileInformationForm :user="$page.props.auth.user"/>
 
-                    <SectionBorder />
+                    <SectionBorder/>
                 </div>
 
                 <div>
-                    <UpdatePasswordForm class="mt-10 sm:mt-0" />
+                    <UpdatePasswordForm class="mt-10 sm:mt-0"/>
 
-                    <SectionBorder />
+                    <SectionBorder/>
                 </div>
 
-                <template>
-                    <SectionBorder />
 
-                    <DeleteUserForm class="mt-10 sm:mt-0" />
-                </template>
+                <SectionBorder/>
+
+                <DeleteUserForm class="mt-10 sm:mt-0"/>
+
+                <Link :href="route('logout')"  method="post" as="button">
+
+                    Выйти
+                </Link>
+
             </div>
         </div>
-        </MainLayout>
+    </MainLayout>
 </template>

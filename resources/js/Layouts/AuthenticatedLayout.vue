@@ -48,6 +48,11 @@ const showingNavigationDropdown = ref(false);
                                     Фото
                                 </NavLink>
                             </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('dashboard.tags')" :active="route().current('dashboard.tags')">
+                                    Теги
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

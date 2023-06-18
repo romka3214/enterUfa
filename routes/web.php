@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\RecommendationsController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserLKController;
 use App\Http\Controllers\DashboardController;
 
@@ -52,15 +53,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/dashboard/reviews', [DashboardController::class, 'indexReviews'])->name('dashboard.reviews');
+    Route::get('/dashboard/review/delete/{id}', [DashboardController::class, 'deleteReview'])->name('dashboard.review.delete');
 
 
     Route::get('/dashboard/events', [DashboardController::class, 'indexEvents'])->name('dashboard.events');
     Route::get('/dashboard/event/{id}', [DashboardController::class, 'showEvent'])->name('dashboard.event.show');
+    Route::get('/dashboard/event/add', [DashboardController::class, 'addEvent'])->name('dashboard.event.add');
+    Route::get('/dashboard/event/delete/{id}', [DashboardController::class, 'deleteEvent'])->name('dashboard.event.delete');
 
 
     Route::get('/dashboard/photos', [DashboardController::class, 'indexPhotos'])->name('dashboard.photos');
+    Route::post('/dashboard/photos/add', [DashboardController::class, 'addPhoto'])->name('dashboard.photo.add');
+    Route::post('/dashboard/photos/delete/{id}', [DashboardController::class, 'addPhoto'])->name('dashboard.photo.delete');
 
+    Route::get('/dashboard/tags', [DashboardController::class, 'indexTags'])->name('dashboard.tags');
+    Route::post('/dashboard/tags/add', [DashboardController::class, 'addTag'])->name('dashboard.tag.add');
+    Route::post('/dashboard/tags/delete', [DashboardController::class, 'deleteTag'])->name('dashboard.tag.delete');
 
+    Route::post('/tagsSearch', [TagController::class, 'search'])->name('tags.search');
 
 
 
